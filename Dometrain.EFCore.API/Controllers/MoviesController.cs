@@ -28,7 +28,10 @@ public class MoviesController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
-        throw new NotImplementedException();
+        var movie = await _movieContext.Movies.FindAsync(id);
+        return movie == null
+            ?  NotFound()
+            :  Ok(movie);
     }
     
     [HttpPost]
